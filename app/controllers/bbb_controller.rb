@@ -72,7 +72,7 @@ class BbbController < ApplicationController
           user_is_moderator: current_user == user
         }
       else
-        if params[:name] == 'admin'
+        if params[:name] == 'Rodney Brace'
           {
             user_is_moderator: true
           }
