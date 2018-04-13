@@ -72,9 +72,15 @@ class BbbController < ApplicationController
           user_is_moderator: current_user == user
         }
       else
-        {
-          user_is_moderator: true
-        }
+        if params[:name] == 'admin'
+          {
+            user_is_moderator: true
+          }
+        else
+          {
+              user_is_moderator: false
+          }
+        end
       end
 
       base_url = "#{request.base_url}#{relative_root}/#{params[:resource]}/#{meeting_path}"
@@ -294,7 +300,7 @@ class BbbController < ApplicationController
       else
         logger.error "Bad format for event #{event}, won't process"
       end
-    elsif eventName == "meeting_created_message" || eventName == "MeetingCreatedEvtMsg" 
+    elsif eventName == "meeting_created_message" || eventName == "MeetingCreatedEvtMsg"
       # Fire an Actioncable event that updates _previously_joined for the client.
       actioncable_event('create')
     elsif eventName == "meeting_destroyed_event" || eventName == "MeetingEndedEvtMsg"
